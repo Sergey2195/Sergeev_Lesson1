@@ -1,5 +1,15 @@
 fun main(){
-    printState(DiceState.ResultState(1))
+    printState(DiceState.InitialState)
+    val readInput = readLine()!!.toInt()
+    var i = 1
+    while (i<=readInput){
+        printState(DiceState.ThrowingState)
+        Thread.sleep(800)
+        printState(DiceState.ResultState(i))
+        Thread.sleep(200)
+        i++
+    }
+    printState(DiceState.FinishState)
 }
 
 fun printState(state: DiceState){
