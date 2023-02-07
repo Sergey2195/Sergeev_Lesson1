@@ -4,7 +4,7 @@ sealed class DiceState {
     object InitialState: DiceState()
     object ThrowingState: DiceState()
     data class ResultState(
-        private val throwNumber: Int
+        val throwNumber: Int
     ) : DiceState() {
         fun getThrowingResult(): Int{
             return Random.nextInt(1, 7)
