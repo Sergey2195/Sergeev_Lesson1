@@ -46,13 +46,11 @@ fun convertingInput(input: String?): Int?{
 }
 
 fun diceThrowing(countOfThrowing: Int){
-    var i = 1
-    while (i<=countOfThrowing){
+    for (count in 1 .. countOfThrowing){
         handlingState(DiceState.ThrowingState)
         Thread.sleep(500)
-        handlingState(DiceState.ResultState(i))
+        handlingState(DiceState.ResultState(count))
         Thread.sleep(500)
-        i++
     }
 }
 
@@ -64,6 +62,6 @@ fun getDiceString(dice: Int):String{
         4 -> "⚃"
         5 -> "⚄"
         6 -> "⚅"
-        else -> throw java.lang.RuntimeException("Error")
+        else -> throw java.lang.RuntimeException("non-existent value")
     }
 }
