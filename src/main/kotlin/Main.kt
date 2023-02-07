@@ -1,42 +1,41 @@
 import kotlin.system.exitProcess
 
-fun main() {
+fun main(){
     startGame()
 }
 
-fun startGame() {
+fun startGame(){
     handlingState(DiceState.InitialState)
     val readInput = readLine()
-    when (val countOfThrowing = convertingInput(readInput)) {
+    when (val countOfThrowing = convertingInput(readInput)){
         null -> handlingState(DiceState.Error)
         else -> diceThrowing(countOfThrowing)
     }
     handlingState(DiceState.FinishState)
 }
 
-fun handlingState(state: DiceState) {
-    val output = when (state) {
+fun handlingState(state: DiceState){
+    val output = when (state){
         is DiceState.InitialState -> "Введите количество бросков кубика:"
         is DiceState.ThrowingState -> "Бросание кубика..."
         is DiceState.ResultState -> "Бросок №${state.throwNumber}. Результат: ${
-            getDiceString(state.getThrowingResult())
-        }"
+            getDiceString(state.getThrowingResult())}"
         is DiceState.FinishState -> "Конец"
         is DiceState.Error -> "Некорретно введено количество бросков"
     }
     println(output).also {
-        if (state is DiceState.Error) {
+        if (state is DiceState.Error){
             exitProcess(400)
         }
     }
 }
 
-fun convertingInput(input: String?): Int? {
+fun convertingInput(input: String?): Int?{
     var result: Int? = null
-    input?.let { str ->
+    input?.let { str->
         result = try {
             str.toInt()
-        } catch (e: java.lang.Exception) {
+        }catch (e: java.lang.Exception){
             null
         }
     }
@@ -46,9 +45,9 @@ fun convertingInput(input: String?): Int? {
     return result
 }
 
-fun diceThrowing(countOfThrowing: Int) {
+fun diceThrowing(countOfThrowing: Int){
     var i = 1
-    while (i <= countOfThrowing) {
+    while (i<=countOfThrowing){
         handlingState(DiceState.ThrowingState)
         Thread.sleep(500)
         handlingState(DiceState.ResultState(i))
@@ -57,7 +56,7 @@ fun diceThrowing(countOfThrowing: Int) {
     }
 }
 
-fun getDiceString(dice: Int): String {
+fun getDiceString(dice: Int):String{
     return when (dice) {
         1 -> "⚀"
         2 -> "⚁"
