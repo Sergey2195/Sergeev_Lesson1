@@ -11,4 +11,5 @@ sealed class DiceState {
         }
     }
     object FinishState: DiceState()
+    object Error: DiceState()
 }
